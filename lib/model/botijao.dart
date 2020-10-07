@@ -1,43 +1,51 @@
 import 'dart:convert';
 
+import 'caneca.dart';
+
 class Botijao {
-  String id;
-  double maxVolume;
-  double atualVolume;
-  int qtdCanecas;
-  int qtdRacks;
+  String idBot;
+  int qtdDose;
+  int volAtual;
+  double volTotal;
+  int numcanecas;
+  List<Caneca> canecas;
   Botijao({
-    this.id,
-    this.maxVolume,
-    this.atualVolume,
-    this.qtdCanecas,
-    this.qtdRacks,
+    this.idBot,
+    this.qtdDose,
+    this.volAtual,
+    this.volTotal,
+    this.numcanecas,
+    this.canecas,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'maxVolume': maxVolume,
-      'atualVolume': atualVolume,
-      'qtdCanecas': qtdCanecas,
-      'qtdRacks': qtdRacks,
+      'idBot': idBot,
+      'qtdDose': qtdDose,
+      'volAtual': volAtual,
+      'volTotal': volTotal,
+      'numcanecas': numcanecas,
+      'canecas': canecas?.map((x) => x?.toMap())?.toList(),
     };
   }
 
-  factory Botijao.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return Botijao(
-      id: map['id'],
-      maxVolume: map['maxVolume'],
-      atualVolume: map['atualVolume'],
-      qtdCanecas: map['qtdCanecas'],
-      qtdRacks: map['qtdRacks'],
-    );
+  Botijao.fromMap(Map<String, dynamic> map) {
+    this.idBot = map['idBot'];
+    this.qtdDose = map['qtdDose'];
+    this.volAtual = map['volAtual'];
+    this.volTotal = map['volTotal'];
+    this.numcanecas = map['numcanecas'];
+    // this.canecas =
+    //    List<Caneca>.from(map['canecas']?.map((x) => Caneca.fromMap(x)));
   }
 
   String toJson() => json.encode(toMap());
 
   factory Botijao.fromJson(String source) =>
       Botijao.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Botijao(idBot: $idBot, qtdDose: $qtdDose, volAtual: $volAtual, volTotal: $volTotal, numcanecas: $numcanecas, canecas: $canecas)';
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:space_farming/views/abastecer.dart';
 import 'package:space_farming/views/add_botijao.dart';

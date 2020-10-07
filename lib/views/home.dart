@@ -1,10 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:space_farming/model/teste.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'package:space_farming/control/controler_home.dart';
+import 'package:space_farming/model/farm.dart';
 import 'package:space_farming/views/componets/gridViewList.dart';
 import 'package:space_farming/views/componets/mainAppBar.dart';
 
-import '../control/controller.dart';
 import 'componets/nav_draw.dart';
 import 'componets/titleOfScreen.dart';
 
@@ -17,7 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  final controller = Controller();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,16 +38,21 @@ class _Home extends State<Home> {
           ),
           Container(
             height: MediaQuery.of(context).size.height - 160,
-            child: GridViewList(),
+            child: Observer(
+              builder: (_) {
+                ControlerHome clt = ControlerHome();
+                List<Farm> list = clt.listBotijao.data;
+                print(list);
+                return GridViewList(
+                  listBotijao: list,
+                );
+              },
+            ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          //await Navigator.pushNamed(context, "/addBotijao");
-          var t = Teste();
-          t.create();
-        },
+        onPressed: () async {},
         child: Icon(Icons.add),
       ),
     );
